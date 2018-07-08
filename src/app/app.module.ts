@@ -18,6 +18,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -70,7 +72,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   providers: [
     DishService,
