@@ -23,7 +23,9 @@ import { flyInOut, expand } from '../animations/app.animation';
 export class HomeComponent implements OnInit {
 
   dish: Dish;
-  errMess: string;
+  dishErrMess: string;
+  promoErrMess: string;
+  leaderErrMess: string;
   promotion: Promotion;
   leader: Leader;
 
@@ -34,9 +36,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.dishservice.getFeaturedDish().subscribe(dishes =>  this.dish = dishes,
-      errmess => this.errMess = <any>errmess.message);
-    this.promotionservice.getFeaturedPromotion().subscribe(promotion => this.promotion = promotion);
-    this.leaderservice.getFeaturedLeader().subscribe(leader => this.leader = leader);
+      errmess => this.dishErrMess = <any>errmess.message);
+    this.promotionservice.getFeaturedPromotion().subscribe(promotion => this.promotion = promotion,
+      errmess => this.promoErrMess = <any>errmess.message);
+    this.leaderservice.getFeaturedLeader().subscribe(leader => this.leader = leader,
+      errmess => this.leaderErrMess = <any>errmess.message);
   }
 
 }
