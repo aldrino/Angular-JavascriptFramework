@@ -42,9 +42,7 @@
 
   <div fxFlex fxFlexOffset="20px" class="form-size">
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
-
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" [hidden]="feedbackSubmit || feedbackCopy" [@expand]>
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -82,8 +80,22 @@
           <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
         </mat-form-field>
       </p>
-      <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="!feedbackForm.valid">Submit</button>
     </form>
+    <div [hidden]="!feedbackSubmit" [@expand]>
+      <h4>Submitting Form</h4>
+      <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="feedbackCopy" [@expand]>
+      <h4>Your Submission</h4>
+      <div>First Name: {{feedbackCopy.firstname}}</div>
+      <div>Last Name: {{feedbackCopy.lastname}}</div>
+      <div>Tel. Number: {{feedbackCopy.telnum}}</div>
+      <div>Email: {{feedbackCopy.email}}</div>
+      <div>Contact You?: {{feedbackCopy.agree}}</div>
+      <div>How?: {{feedbackCopy.contacttype}}</div>
+      <div>Feedback: {{feedbackCopy.message}}</div>
+    </div>
   </div>
 
 </div>
